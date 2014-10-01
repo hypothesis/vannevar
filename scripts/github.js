@@ -47,6 +47,14 @@ var splitRepo = function (name) {
         return false;
     }
 
+    // Don't allow empty user or repo.
+    if (result.user !== null && result.user.length === 0) {
+        return;
+    }
+    if (result.repo.length === 0) {
+        return;
+    }
+
     return result;
 };
 
