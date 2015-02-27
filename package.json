@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "hubot": ">= 2.6.0 < 3.0.0",
-    "hubot-auth": "^1.1.2",
+    "hubot-auth": "^1.2.0",
     "hubot-google-hangouts": "^0.7.0",
     "hubot-help": "^0.1.1",
     "hubot-irc": "^0.2.7",
