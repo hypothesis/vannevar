@@ -1,5 +1,6 @@
 [
   "hubot-auth",
   "hubot-google-hangouts",
-  "hubot-help"
+  "hubot-help",
+  "hubot-tell"
 ]
