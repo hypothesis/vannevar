@@ -75,20 +75,21 @@ module.exports = function (robot) {
 
 
     robot.on('dokku-webhook.receive-app', function (data) {
-        var msg = "dokku@" + data.host + " deployment started: ";
-        msg += data.app + " ";
+        var msg = "deploy started: ";
+        msg += data.app + " (";
         if (data.git_rev_before === data.git_rev) {
-            msg += "(rebuild)";
+            msg += "rebuild";
         } else {
-            msg += "(" + data.git_rev_before.slice(0, 7) + ".." + data.git_rev.slice(0, 7) + ")";
+            msg += data.git_rev_before.slice(0, 7) + ".." + data.git_rev.slice(0, 7);
         }
+        msg += ") on " + data.host;
 
         robot.messageRoom(data.room, msg);
     });
 
     robot.on('dokku-webhook.post-deploy', function (data) {
-        var msg = "dokku@" + data.host + " deployment completed: ";
-        msg += data.app + " to " + data.url;
+        var msg = "deploy completed: ";
+        msg += data.app + " (" + data.url + ") on " + data.host;
 
         robot.messageRoom(data.room, msg);
     });
