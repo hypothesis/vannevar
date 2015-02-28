@@ -77,7 +77,11 @@ module.exports = function (robot) {
     robot.on('dokku-webhook.receive-app', function (data) {
         var msg = "dokku@" + data.host + " deployment started: ";
         msg += data.app + " ";
-        msg += data.git_rev_before.slice(0, 7) + ".." + data.git_rev.slice(0, 7);
+        if (data.git_rev_before === data.git_rev) {
+            msg += "(rebuild)";
+        } else {
+            msg += "(" + data.git_rev_before.slice(0, 7) + ".." + data.git_rev.slice(0, 7) + ")";
+        }
 
         robot.messageRoom(data.room, msg);
     });
