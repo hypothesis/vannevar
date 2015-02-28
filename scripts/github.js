@@ -9,6 +9,7 @@
 //   hubot add repo <name> - Add repo to stored repository list
 //   hubot remove repo <name> - Remove repo from stored repository list
 //   hubot list repos - Show stored repository list
+//   hubot compare <repo> <compare> - Get GitHub compare link
 //
 
 var config = {
@@ -183,7 +184,22 @@ module.exports = function (robot) {
             msg.send("I don't know about any repos yet.");
             return;
         }
-        msg.send( "I know about these repos: " + repos.join(", ") + ".");
+        msg.send("I know about these repos: " + repos.join(", ") + ".");
+    });
+
+    robot.respond(/compare ([^\s]+) ([^\s]+)$/i, function (msg) {
+        var repo = msg.match[1],
+            comparison = msg.match[2],
+            repos = getRepos(robot.brain);
+
+        var result = searchRepos(repos, repo);
+        if (!result) {
+            return;
+        }
+
+        // Allow for comparisons pasted from git, which have only two dots.
+        comparison = comparison.replace(/\b\.\.\b/, '...');
+        msg.send("https://github.com/" + result + "/compare/" + comparison);
     });
 
     robot.hear(/\b([^\s#]+)#(\d+)\b/i, function (msg) {
