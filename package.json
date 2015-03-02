@@ -27,7 +27,8 @@
     "hubot-help": "^0.1.1",
     "hubot-irc": "^0.2.7",
     "hubot-redis-brain": "0.0.2",
-    "hubot-tell": "^1.2.3"
+    "hubot-tell": "^1.2.3",
+    "promise": "^6.1.0"
   },
   "engines": {
     "node": "0.12.x"
