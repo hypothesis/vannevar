@@ -2,5 +2,6 @@
   "hubot-auth",
   "hubot-google-hangouts",
   "hubot-help",
+  "hubot-redis-brain",
   "hubot-tell"
 ]
