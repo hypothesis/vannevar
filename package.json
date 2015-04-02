@@ -21,6 +21,7 @@
     "url": "https://github.com/github/hubot.git"
   },
   "dependencies": {
+    "geocoder": "^0.2.2",
     "hubot": ">= 2.6.0 < 3.0.0",
     "hubot-auth": "^1.2.0",
     "hubot-google-hangouts": "^0.7.0",
@@ -28,7 +29,8 @@
     "hubot-irc": "^0.2.7",
     "hubot-redis-brain": "0.0.2",
     "hubot-tell": "^1.2.3",
-    "promise": "^6.1.0"
+    "promise": "^6.1.0",
+    "timezoner": "^0.1.9"
   },
   "engines": {
     "node": "0.12.x"
