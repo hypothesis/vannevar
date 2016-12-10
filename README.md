@@ -1,6 +1,6 @@
 # Vannevar
 
-Vannevar is one of the [Hypothes.is project][hyp]'s IRC bots.
+Vannevar is the [Hypothes.is project][hyp]'s helpful Slack bot.
 
 Vannevar is a [hubot][hubot] and is designed to be deployed on
 [Heroku][heroku].
