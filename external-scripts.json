@@ -1,6 +1,5 @@
 [
   "hubot-auth",
-  "hubot-google-hangouts",
   "hubot-redis-brain",
   "hubot-tell"
 ]
