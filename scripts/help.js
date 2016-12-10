@@ -31,10 +31,6 @@ module.exports = function (robot) {
 
         emit = cmds.join("\n");
 
-        if (typeof msg.sendPrivate === 'function') {
-            msg.sendPrivate(emit);
-        } else {
-            msg.send(emit);
-        }
+        msg.send(emit);
     });
 };
