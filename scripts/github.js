@@ -1,9 +1,6 @@
 // Description:
 //   Fetch titles and links to GitHub issues
 //
-// Configuration:
-//   HUBOT_GITHUB_ADMIN_ROLE - Who can edit GitHub data
-//
 // Commands:
 //   repo#nr - Get title and link to this issue
 //   hubot add repo <name> - Add repo to stored repository list
@@ -11,10 +8,6 @@
 //   hubot list repos - Show stored repository list
 //   hubot compare <repo> <compare> - Get GitHub compare link
 //
-
-var config = {
-    adminRole: process.env.HUBOT_GITHUB_ADMIN_ROLE || 'staff'
-};
 
 var VALID_REPO_NAME = /^[^\s\/]+\/[^\s\/]+$/;
 
@@ -141,9 +134,8 @@ var getRepos = function (brain) {
 module.exports = function (robot) {
     robot.respond(/add repo ([^\s]+)$/i, function (msg) {
         var repo = msg.match[1].toLowerCase();
-        if (!robot.auth.hasRole(msg.envelope.user, config.adminRole)) {
-            msg.send("You need the " + config.adminRole + " role to do that! " +
-                     "Ask an admin.");
+        if (!robot.auth.isStaff(msg.message.user)) {
+            msg.send("You need to be a staff member to do that, sorry!");
             return;
         }
         if (!validRepoName(repo)) {
@@ -163,9 +155,8 @@ module.exports = function (robot) {
 
     robot.respond(/remove repo ([^\s]+)$/i, function (msg) {
         var repo = msg.match[1];
-        if (!robot.auth.hasRole(msg.envelope.user, config.adminRole)) {
-            msg.send("You need the " + config.adminRole + " role to do that! " +
-                     "Ask an admin.");
+        if (!robot.auth.isStaff(msg.message.user)) {
+            msg.send("You need to be a staff member to do that, sorry!");
             return;
         }
         var repos = getRepos(robot.brain),

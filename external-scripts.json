@@ -1,5 +1,4 @@
 [
-  "hubot-auth",
   "hubot-redis-brain",
   "hubot-tell"
 ]
