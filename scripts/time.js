@@ -2,9 +2,13 @@
 //   Help with timezones.
 //
 // Commands:
-//   hubot time? - Print time in a set of default timezones
-//   hubot time in <loc>? - Print time in the specified location (free text, geocoded)
+//   hubot time - Print time in a set of default timezones
+//   hubot time in <loc> - Print time in the specified location (free text, geocoded)
+//   hubot time for <name> - Print time for the specified user (according to their Slack profile)
 //
+
+'use strict';
+
 var Promise = require('promise');
 var geocoder = require('geocoder');
 var timezoner = require('timezoner');
@@ -110,7 +114,7 @@ function renderMessage(loc, tz) {
 
 module.exports = function(robot) {
 
-    robot.respond(/times?\??$/i, function(msg) {
+    robot.respond(/times?$/i, function(msg) {
         lookupDefault().done(function(results) {
             var strings = results.map(function(res) {
                 return res.loc.query + ': ' + renderCurrentTime(res.tz);
@@ -119,13 +123,37 @@ module.exports = function(robot) {
         });
     });
 
-    robot.respond(/time(\s+in)?\s+([^?]+)\??$/i, function(msg) {
-        var query = msg.match[2];
+    robot.respond(/time in (.+)$/i, function(msg) {
+        var query = msg.match[1];
         lookup(query).done(function(res) {
             msg.send(renderMessage(res.loc, res.tz));
         }, function(err) {
             msg.send('Sorry, no idea: ' + err.message);
         });
+    });
+
+    robot.respond(/time for @?(\S+)$/i, function(msg) {
+        const username = msg.match[1];
+        if (robot.adapterName !== "slack") {
+            msg.send('Sorry, this only works on Slack.');
+            return;
+        }
+        const user = robot.adapter.client.rtm.dataStore.getUserByName(username);
+        if (!user) {
+            msg.send(`Sorry, I don't know who ${username} is.`);
+            return;
+        }
+        if (typeof user.tz_offset != 'number') {
+            msg.send(`Sorry, I don't know what timezone ${username} is in. ` +
+                     `Maybe ask them to update their Slack profile?`);
+            return;
+        }
+
+        let response = getOffsetTime(user.tz_offset);
+        if (user.tz_label) {
+            response += ` (${user.tz_label})`;
+        }
+        msg.send(response);
     });
 
 };
