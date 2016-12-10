@@ -10,9 +10,10 @@ var geocoder = require('geocoder');
 var timezoner = require('timezoner');
 
 var DEFAULT_TIMEZONES = {
-    "Pacific": [37.7833, -122.4167], // San Francisco
+    "Pacific": [37.7833, -122.4167],  // San Francisco
+    "Central": [41.836944, -87.684722],  // Chicago
     "Eastern": [40.7127, -74.0059],  // NYC
-    "Edinburgh": [55.9531, -3.1889],
+    "UK": [51.507222, -0.1275],  // London
     "Berlin": [52.5167, 13.3833]
 };
 
