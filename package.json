@@ -23,7 +23,7 @@
   "dependencies": {
     "geocoder": "^0.2.2",
     "hubot": "^2.19.0",
-    "hubot-auth": "^1.2.0",
+    "hubot-auth": "^2.0.0",
     "hubot-google-hangouts": "^0.7.0",
     "hubot-help": "^0.1.1",
     "hubot-redis-brain": "0.0.2",
