@@ -23,6 +23,7 @@
   "dependencies": {
     "geocoder": "^0.2.2",
     "hubot": "^2.19.0",
+    "hubot-grafana": "^1.4.9",
     "hubot-help": "^0.2.0",
     "hubot-redis-brain": "0.0.2",
     "hubot-slack": "^4.2.2",

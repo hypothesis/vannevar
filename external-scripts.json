@@ -1,4 +1,5 @@
 [
+  "hubot-grafana",
   "hubot-help",
   "hubot-redis-brain"
 ]
