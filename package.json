@@ -26,7 +26,6 @@
     "hubot-help": "^0.1.1",
     "hubot-redis-brain": "0.0.2",
     "hubot-slack": "^4.2.2",
-    "hubot-tell": "^1.2.3",
     "promise": "^6.1.0",
     "timezoner": "^0.1.9"
   },
