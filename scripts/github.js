@@ -3,11 +3,13 @@
 //
 // Commands:
 //   repo#nr - Get title and link to this issue
-//   hubot add repo <name> - Add repo to stored repository list
-//   hubot remove repo <name> - Remove repo from stored repository list
-//   hubot list repos - Show stored repository list
-//   hubot compare <repo> <compare> - Get GitHub compare link
+//   hubot gh repos - Show stored repository list
+//   hubot gh repos add <name> - Add repo to stored repository list
+//   hubot gh repos rm <name> - Remove repo from stored repository list
+//   hubot gh compare <repo> <compare> - Get GitHub compare link
 //
+
+'use strict';
 
 var VALID_REPO_NAME = /^[^\s\/]+\/[^\s\/]+$/;
 
@@ -132,7 +134,7 @@ var getRepos = function (brain) {
 
 
 module.exports = function (robot) {
-    robot.respond(/add repo ([^\s]+)$/i, function (msg) {
+    robot.respond(/gh repos add ([^\s]+)$/i, function (msg) {
         var repo = msg.match[1].toLowerCase();
         if (!robot.auth.isStaff(msg.message.user)) {
             msg.send("You need to be a staff member to do that, sorry!");
@@ -153,7 +155,7 @@ module.exports = function (robot) {
         msg.send("OK, repo '" + repo + "' added to my list.");
     });
 
-    robot.respond(/remove repo ([^\s]+)$/i, function (msg) {
+    robot.respond(/gh repos rm ([^\s]+)$/i, function (msg) {
         var repo = msg.match[1];
         if (!robot.auth.isStaff(msg.message.user)) {
             msg.send("You need to be a staff member to do that, sorry!");
@@ -169,7 +171,7 @@ module.exports = function (robot) {
         msg.send("OK, repo '" + repo + "' removed from my list.");
     });
 
-    robot.respond(/list repos/i, function (msg) {
+    robot.respond(/gh repos$/i, function (msg) {
         var repos = getRepos(robot.brain);
         if (repos.length === 0) {
             msg.send("I don't know about any repos yet.");
@@ -178,7 +180,7 @@ module.exports = function (robot) {
         msg.send("I know about these repos: " + repos.join(", ") + ".");
     });
 
-    robot.respond(/compare ([^\s]+) ([^\s]+)$/i, function (msg) {
+    robot.respond(/gh compare ([^\s]+) ([^\s]+)$/i, function (msg) {
         var repo = msg.match[1],
             comparison = msg.match[2],
             repos = getRepos(robot.brain);
@@ -212,7 +214,7 @@ module.exports = function (robot) {
                     return;
                 }
                 try {
-                    obj = JSON.parse(body);
+                    let obj = JSON.parse(body);
                     if (obj.title && obj.html_url) {
                         msg.send(obj.title + ": " + obj.html_url);
                     }
